@@ -2,7 +2,7 @@
 using namespace std;
 
 int main() {
-    int n,e;
+    int n,e; 
     cin>>n>>e;
     vector<pair<int,int>>edge_list; // 
     while(e--){
