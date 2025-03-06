@@ -29,6 +29,7 @@ int bfs(int si,int sj)
     int count = 0;
     while (!q.empty())
     {
+        
         auto [par_i, par_j] = q.front();
         q.pop();
         count++;
