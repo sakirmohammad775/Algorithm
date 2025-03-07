@@ -19,6 +19,7 @@ bool valid(int i, int j)
     {
         return false;
     }
+    
     return true;
 }
 int bfs(int si,int sj)
