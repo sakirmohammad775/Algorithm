@@ -1,0 +1,5 @@
+0parent:-1
+1parent:0
+2parent:1
+3parent:2
+No cycle detected

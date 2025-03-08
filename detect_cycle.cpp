@@ -2,6 +2,8 @@
 using namespace std;
 bool vis[105];
 vector<int> adj_list[105];
+int parent[105];
+bool cycle;
 void bfs(int src)
 {
     queue<int> q;
@@ -11,13 +13,16 @@ void bfs(int src)
     {
         int par = q.front();
         q.pop();
-        cout<<par<<endl;
         for (int child : adj_list[par])
         {
+            if(vis[child]&& parent[par]!=child){
+                cycle = true;
+            }
             if (!vis[child])
             {
                 q.push(child);
                 vis[child] = true;
+                parent[child]=par;
             }
         }
     }
@@ -28,7 +33,7 @@ int main()
     int n, e;
     cin >> n >> e;
 
-    for (int i = 0; i < n - 1; i++)
+    while(e--)
     {
         int a, b;
         cin >> a >> b;
@@ -36,12 +41,20 @@ int main()
         adj_list[b].push_back(a);
     }
     memset(vis, false, sizeof(vis));
-    for (int i = 0; i < n; i++)
+    memset(parent,-1,sizeof(parent));
+    cycle=false;
+    for (int i = 0; i < n; i++) //loop through  visited node
     {
-        if (!vis)
+        if (!vis[i])
         {
             bfs(i);
         }
+    }
+    if( cycle){
+        cout<<"Cycle detected"<<endl;
+    }
+    else{
+        cout<<"No cycle detected"<<endl;
     }
     return 0;
 }
