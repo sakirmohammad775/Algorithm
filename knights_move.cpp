@@ -1,46 +1,36 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Directions for knight's moves
 vector<pair<int, int>> d = { {-2, -1}, {-1, -2}, {1, -2}, {2, -1},
                              {2, 1}, {1, 2}, {-1, 2}, {-2, 1} };
 
-// Function to check if a cell is valid
-bool valid(int i, int j, int n) {
-    return i >= 0 && j >= 0 && i < n && j < n;
+bool valid(int i, int j, int n, int m) {
+    return i >= 0 && j >= 0 && i < n && j < m;
 }
 
-// BFS function to find the minimum steps for the knight to reach the queen
-int bfs(int n, int kx, int ky, int qx, int qy) {
-    // If knight and queen are in the same cell
-    if (kx == qx && ky == qy) {
+int bfs(int n, int m, int si, int sj, int di, int dj) {
+    if (si == di && sj == dj) {
         return 0;
     }
 
-    // BFS setup
     queue<pair<int, int>> q;
-    vector<vector<int>> level(n, vector<int>(n, -1)); // Distance matrix
+    vector<vector<int>> level(n, vector<int>(m, -1));
 
-    q.push({kx, ky});
-    level[kx][ky] = 0;
+    q.push({si, sj});
+    level[si][sj] = 0;
 
     while (!q.empty()) {
         pair<int, int> par = q.front();
         q.pop();
         int par_i = par.first;
         int par_j = par.second;
-
-        // Explore all 8 possible moves
         for (int i = 0; i < 8; i++) {
             int ci = par_i + d[i].first;
             int cj = par_j + d[i].second;
-
-            // Check if the new position is valid and unvisited
-            if (valid(ci, cj, n) && level[ci][cj] == -1) {
+            if (valid(ci, cj, n, m) && level[ci][cj] == -1) {
                 level[ci][cj] = level[par_i][par_j] + 1;
 
-                // If queen's position is reached
-                if (ci == qx && cj == qy) {
+                if (ci == di && cj == dj) {
                     return level[ci][cj];
                 }
 
@@ -56,19 +46,19 @@ int main() {
     cin >> t;
 
     while (t--) {
-        int n, kx, ky, qx, qy;
-        cin >> n >> n; // Chessboard size (n x n)
-        cin >> kx >> ky; // Knight's position
-        cin >> qx >> qy; // Queen's position
+        int n, m, si, sj, di, dj;
+        cin >> n >> m;
+        cin >> si >> sj;
+        cin >> di >> dj;
 
-
-        if (kx < 0 || ky < 0 || kx >= n || ky >= n || qx < 0 || qy < 0 || qx >= n || qy >= n) {
+        // Boundary check
+        if (si < 0 || sj < 0 || si >= n || sj >= m || di < 0 || dj < 0 || di >= n || dj >= m) {
             cout << -1 << endl;
             continue;
         }
 
-        int result = bfs(n, kx, ky, qx, qy);
-        cout << result << endl;
+        int step = bfs(n, m, si, sj, di, dj);
+        cout << step << endl;
     }
 
     return 0;
