@@ -5,10 +5,10 @@ int main()
 {
     int n, e;
     cin >> n >> e;
-    int adj_mat[n][n];
-    for (int i = 0; i < n; i++)
+    int adj_mat[n][n];          // adjacency matrix
+    for (int i = 0; i < n; i++) // initialize adjacency matrix
     {
-        for (int j = 0; j < n; j++) // adjacency matrix 
+        for (int j = 0; j < n; j++) // adjacency matrix
         {
             if (i == j) // diagonal elements
             {
@@ -16,10 +16,11 @@ int main()
             }
             else
             {
-                adj_mat[i][j] = INT_MAX;
+                adj_mat[i][j] = INT_MAX; // infinity
             }
         }
     }
+
     while (e--)
     {
         int a, b, c;
@@ -27,6 +28,22 @@ int main()
         adj_mat[a][b] = c; // directed graph
         // adj_mat[b][a] = c; undirected graph
     }
+
+    for (int k = 0; k < n; k++) //  floyd warshall algorithm
+    {
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                if (adj_mat[i][k] != INT_MAX && adj_mat[k][j] != INT_MAX &&
+                    adj_mat[i][k] + adj_mat[k][j] < adj_mat[i][j])
+                {
+                    adj_mat[i][j] = adj_mat[i][k] + adj_mat[k][j];
+                }
+            }
+        }
+    }
+
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n; j++)
