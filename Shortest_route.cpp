@@ -25,8 +25,8 @@ int main()
     {
         long long int a, b, c;
         cin >> a >> b >> c; // input edge
-        adj_mat[a][b] = c;  // directed graph
-        adj_mat[b][a] = c;  // undirected graph
+        adj_mat[a][b] =min(adj_mat[a][b], c);  // directed graph
+        adj_mat[b][a] = min(adj_mat[a][b], c);  // undirected graph
     }
 
     for (int k = 1; k <= n; k++) //  floyd warshall algorithm
