@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
-int par[1005];
-int group_size[1005];
+int par[100005];
+int group_size[100005];
 
 int find(int node)
 {
@@ -38,7 +38,7 @@ int main()
         cin >> a >> b;
         int leaderA = find(a);
         int leaderB = find(b);
-        if (leaderA = leaderB)
+        if (leaderA == leaderB)
         {
             cycle++;
         }
