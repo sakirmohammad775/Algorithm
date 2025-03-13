@@ -14,14 +14,14 @@ public:
 };
 
 vector<Edge> edge_list;
-int dis[1005];
+long long int dis[1005];
 int n, e;
 
 bool bellman_ford(int s)
 {
     for (int i = 0; i <= n; i++)
     {
-        dis[i] = INT_MAX;
+        dis[i] = LLONG_MAX;
     }
     dis[s] = 0;
 
@@ -31,7 +31,7 @@ bool bellman_ford(int s)
         for (auto ed : edge_list)
         {
             int a = ed.a, b = ed.b, c = ed.c;
-            if (dis[a] != INT_MAX && dis[a] + c < dis[b])
+            if (dis[a] != LLONG_MAX && dis[a] + c < dis[b])
             {
                 dis[b] = dis[a] + c;
                 updated = true;
@@ -43,7 +43,7 @@ bool bellman_ford(int s)
 
     for (auto ed : edge_list)
     {
-        if (dis[ed.a] != INT_MAX && dis[ed.a] + ed.c < dis[ed.b])
+        if (dis[ed.a] != LLONG_MAX && dis[ed.a] + ed.c < dis[ed.b])
         {
             cout << "Negative Cycle Detected\n";
             return false;
@@ -75,7 +75,7 @@ int main()
     {
         int d;
         cin >> d;
-        if (dis[d] == INT_MAX)
+        if (dis[d] == LLONG_MAX)
             cout << "Not Possible\n";
         else
             cout << dis[d] << "\n";
