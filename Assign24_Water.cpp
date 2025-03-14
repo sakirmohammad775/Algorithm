@@ -1,65 +1,42 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-pair<int, int> maxWaterContainer(const vector<int>& heights) {
-    int left = 0, right = heights.size() - 1;
-    int max_area = 0;
-    pair<int, int> best_pair = {left, right};
+void findMaxWater(int size, vector<int>& heights) {
+    int start = 0;
+    int end = size - 1;
+    int maxCapacity = 0;
+    int leftIndex = 0;
+    int rightIndex = 0;
 
-    while (left < right) {
-        int height = min(heights[left], heights[right]);
-        int width = right - left;
-        int area = height * width;
-
-        if (area > max_area) {
-            max_area = area;
-            best_pair = {left, right};
+    while (start < end) {
+        int currentCapacity = min(heights[start], heights[end]) * (end - start);
+        if (currentCapacity > maxCapacity) {
+            maxCapacity = currentCapacity;
+            leftIndex = start;
+            rightIndex = end;
         }
-
-        // Move the pointer for the shorter line
-        if (heights[left] < heights[right]) {
-            left++;
+        if (heights[start] < heights[end]) {
+            start++;
         } else {
-            right--;
+            end--;
         }
+        
     }
-
-    return best_pair;
+    cout << leftIndex << " " << rightIndex << endl;
 }
 
 int main() {
-    int t;
-    cin >> t;  // Number of test cases
+    int q;
+    cin >> q;
 
-    while (t--) {
-        int n;
-        cin >> n;  // Number of lines (or sticks)
-        vector<int> heights(n);
-
-        for (int i = 0; i < n; i++) {
+    while (q--) {
+        int size;
+        cin >> size;
+        vector<int> heights(size);
+        for (int i = 0; i < size; i++) {
             cin >> heights[i];
         }
-
-        // Find the pair of indices that can hold the most water
-        pair<int, int> result = maxWaterContainer(heights);
-
-        // Output the indices
-        cout << result.first << " " << result.second << endl;
+        findMaxWater(size, heights);
     }
-
     return 0;
 }
-/*input->
-2
-9
-1 8 3 4 0 7 6 5 2
-5
-5 2 1 6 3
-output-> 
-1 5  
-0 3
-
-*/ 
