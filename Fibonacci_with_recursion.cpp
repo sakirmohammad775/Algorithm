@@ -9,6 +9,8 @@ int fibonacci(int n)
 }
 int main()
 {
-    cout << fibonacci(8);
+    int n;
+    cin >> n;
+    cout << fibonacci(n);
     return 0;
 }
